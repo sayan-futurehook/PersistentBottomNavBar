@@ -59,7 +59,7 @@ class PersistentTabView extends PersistentTabViewBase {
   final bool hideNavigationBarWhenKeyboardShows;
 
   ///Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
-  final bool? hideNavigationBar;
+  bool? hideNavigationBar;
 
   final BuildContext context;
 
@@ -343,6 +343,10 @@ class _PersistentTabViewState extends State<PersistentTabView> {
     _contextList = List<BuildContext?>.filled(
         widget.items == null ? widget.itemCount ?? 0 : widget.items!.length,
         null);
+
+    if (widget.isTablet) {
+      widget.hideNavigationBar = true;
+    }
 
     if (widget.controller == null) {
       _controller = PersistentTabController(initialIndex: 0);

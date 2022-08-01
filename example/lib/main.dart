@@ -281,7 +281,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle: NavBarStyle.style17,
-        isTablet: false, // Choose the nav bar style with this property
+        isTablet: true, // Choose the nav bar style with this property
       ),
     );
   }
