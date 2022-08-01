@@ -85,8 +85,8 @@ class BottomNavSimple extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: this.navBarEssentials!.navBarHeight,
+      width: this.navBarEssentials!.navBarHeight,
+      height: double.infinity,
       padding: EdgeInsets.only(
           left: this.navBarEssentials!.padding?.left ??
               MediaQuery.of(context).size.width * 0.04,
