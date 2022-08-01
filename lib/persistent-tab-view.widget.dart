@@ -63,11 +63,14 @@ class PersistentTabView extends PersistentTabViewBase {
 
   final BuildContext context;
 
+  bool isTablet;
+
   PersistentTabView(this.context,
       {Key? key,
       List<PersistentBottomNavBarItem>? items,
       required this.screens,
       this.controller,
+      required this.isTablet,
       double navBarHeight = kBottomNavigationBarHeight,
       this.margin = EdgeInsets.zero,
       this.backgroundColor = CupertinoColors.white,
@@ -135,6 +138,7 @@ class PersistentTabView extends PersistentTabViewBase {
     Key? key,
     required this.screens,
     this.controller,
+    required this.isTablet,
     this.margin = EdgeInsets.zero,
     this.floatingActionButton,
     required Widget customWidget,
@@ -365,7 +369,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
       }
     });
     if (widget.selectedTabScreenContext != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         widget.selectedTabScreenContext!(_contextList[_controller!.index]);
       });
     }
@@ -636,19 +640,35 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             },
           ),
           tabBuilder: (BuildContext context, int index) {
-            return SafeArea(
-              top: false,
-              right: false,
-              left: false,
-              bottom: (widget.items != null &&
-                          widget.items![_controller!.index].opacity < 1.0) ||
-                      (widget.hideNavigationBar != null && _isCompleted!)
-                  ? false
-                  : widget.margin.bottom > 0
-                      ? false
-                      : widget.confineInSafeArea,
-              child: _buildScreen(index),
-            );
+            return widget.isTablet
+                ? SafeArea(
+                    top: false,
+                    right: false,
+                    bottom: false,
+                    left: (widget.items != null &&
+                                widget.items![_controller!.index].opacity <
+                                    1.0) ||
+                            (widget.hideNavigationBar != null && _isCompleted!)
+                        ? false
+                        : widget.margin.bottom > 0
+                            ? false
+                            : widget.confineInSafeArea,
+                    child: _buildScreen(index),
+                  )
+                : SafeArea(
+                    top: false,
+                    right: false,
+                    left: false,
+                    bottom: (widget.items != null &&
+                                widget.items![_controller!.index].opacity <
+                                    1.0) ||
+                            (widget.hideNavigationBar != null && _isCompleted!)
+                        ? false
+                        : widget.margin.bottom > 0
+                            ? false
+                            : widget.confineInSafeArea,
+                    child: _buildScreen(index),
+                  );
           },
         ),
       );
