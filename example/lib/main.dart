@@ -280,8 +280,8 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style17,
-        isTablet: true, // Choose the nav bar style with this property
+        navBarStyle:
+            NavBarStyle.style17, // Choose the nav bar style with this property
       ),
     );
   }
