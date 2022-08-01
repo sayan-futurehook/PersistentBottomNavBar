@@ -234,7 +234,7 @@ class _PersistentTabScaffoldState extends State<PersistentTabScaffold> {
           MediaQuery(
             data: existingMediaQuery.copyWith(textScaleFactor: 1),
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topLeft,
               child: widget.tabBar.copyWith(
                 selectedIndex: _controller!.index,
                 onItemSelected: (int newIndex) {

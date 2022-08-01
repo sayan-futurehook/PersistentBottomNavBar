@@ -96,7 +96,7 @@ class BottomNavSimple extends StatelessWidget {
               this.navBarEssentials!.navBarHeight! * 0.15,
           bottom: this.navBarEssentials!.padding?.bottom ??
               this.navBarEssentials!.navBarHeight! * 0.12),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: this.navBarEssentials!.items!.map((item) {
