@@ -645,15 +645,38 @@ class _PersistentTabViewState extends State<PersistentTabView> {
             return SafeArea(
               top: false,
               right: false,
-              left: false,
-              bottom: (widget.items != null &&
-                          widget.items![_controller!.index].opacity < 1.0) ||
-                      (widget.hideNavigationBar != null && _isCompleted!)
-                  ? false
-                  : widget.margin.bottom > 0
+              left: widget.isTablet
+                  ? (widget.items != null &&
+                              widget.items![_controller!.index].opacity <
+                                  1.0) ||
+                          (widget.hideNavigationBar != null && _isCompleted!)
                       ? false
-                      : widget.confineInSafeArea,
-              child: _buildScreen(index),
+                      : widget.margin.bottom > 0
+                          ? false
+                          : widget.confineInSafeArea
+                  : false,
+              bottom: widget.isTablet
+                  ? false
+                  : (widget.items != null &&
+                              widget.items![_controller!.index].opacity <
+                                  1.0) ||
+                          (widget.hideNavigationBar != null && _isCompleted!)
+                      ? false
+                      : widget.margin.bottom > 0
+                          ? false
+                          : widget.confineInSafeArea,
+              child: widget.isTablet
+                  ? Row(
+                      children: [
+                        SizedBox(
+                          width: _navBarHeight,
+                        ),
+                        Expanded(
+                          child: _buildScreen(index),
+                        ),
+                      ],
+                    )
+                  : _buildScreen(index),
             );
           },
         ),
