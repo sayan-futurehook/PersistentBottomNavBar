@@ -28,119 +28,57 @@ class BottomNavSimple extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  isTablet
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: IconTheme(
-                                data: IconThemeData(
-                                    size: item.iconSize,
-                                    color: isSelected
-                                        ? (item.activeColorSecondary == null
-                                            ? item.activeColorPrimary
-                                            : item.activeColorSecondary)
-                                        : item.inactiveColorPrimary == null
-                                            ? item.activeColorPrimary
-                                            : item.inactiveColorPrimary),
-                                child: isSelected
-                                    ? item.icon
-                                    : item.inactiveIcon ?? item.icon,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: IconTheme(
+                          data: IconThemeData(
+                              size: item.iconSize,
+                              color: isSelected
+                                  ? (item.activeColorSecondary == null
+                                      ? item.activeColorPrimary
+                                      : item.activeColorSecondary)
+                                  : item.inactiveColorPrimary == null
+                                      ? item.activeColorPrimary
+                                      : item.inactiveColorPrimary),
+                          child: isSelected
+                              ? item.icon
+                              : item.inactiveIcon ?? item.icon,
+                        ),
+                      ),
+                      item.title == null
+                          ? SizedBox.shrink()
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 15.0),
+                              child: Material(
+                                type: MaterialType.transparency,
+                                child: FittedBox(
+                                    child: Text(
+                                  item.title!,
+                                  style: item.textStyle != null
+                                      ? (item.textStyle!.apply(
+                                          color: isSelected
+                                              ? (item.activeColorSecondary ==
+                                                      null
+                                                  ? item.activeColorPrimary
+                                                  : item.activeColorSecondary)
+                                              : item.inactiveColorPrimary))
+                                      : TextStyle(
+                                          color: isSelected
+                                              ? (item.activeColorSecondary ==
+                                                      null
+                                                  ? item.activeColorPrimary
+                                                  : item.activeColorSecondary)
+                                              : item.inactiveColorPrimary,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0),
+                                )),
                               ),
-                            ),
-                            item.title == null
-                                ? SizedBox.shrink()
-                                : Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Material(
-                                      type: MaterialType.transparency,
-                                      child: FittedBox(
-                                          child: Text(
-                                        item.title!,
-                                        style: item.textStyle != null
-                                            ? (item.textStyle!.apply(
-                                                color: isSelected
-                                                    ? (item.activeColorSecondary ==
-                                                            null
-                                                        ? item
-                                                            .activeColorPrimary
-                                                        : item
-                                                            .activeColorSecondary)
-                                                    : item
-                                                        .inactiveColorPrimary))
-                                            : TextStyle(
-                                                color: isSelected
-                                                    ? (item.activeColorSecondary ==
-                                                            null
-                                                        ? item
-                                                            .activeColorPrimary
-                                                        : item
-                                                            .activeColorSecondary)
-                                                    : item.inactiveColorPrimary,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12.0),
-                                      )),
-                                    ),
-                                  )
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: IconTheme(
-                                data: IconThemeData(
-                                    size: item.iconSize,
-                                    color: isSelected
-                                        ? (item.activeColorSecondary == null
-                                            ? item.activeColorPrimary
-                                            : item.activeColorSecondary)
-                                        : item.inactiveColorPrimary == null
-                                            ? item.activeColorPrimary
-                                            : item.inactiveColorPrimary),
-                                child: isSelected
-                                    ? item.icon
-                                    : item.inactiveIcon ?? item.icon,
-                              ),
-                            ),
-                            item.title == null
-                                ? SizedBox.shrink()
-                                : Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Material(
-                                      type: MaterialType.transparency,
-                                      child: FittedBox(
-                                          child: Text(
-                                        item.title!,
-                                        style: item.textStyle != null
-                                            ? (item.textStyle!.apply(
-                                                color: isSelected
-                                                    ? (item.activeColorSecondary ==
-                                                            null
-                                                        ? item
-                                                            .activeColorPrimary
-                                                        : item
-                                                            .activeColorSecondary)
-                                                    : item
-                                                        .inactiveColorPrimary))
-                                            : TextStyle(
-                                                color: isSelected
-                                                    ? (item.activeColorSecondary ==
-                                                            null
-                                                        ? item
-                                                            .activeColorPrimary
-                                                        : item
-                                                            .activeColorSecondary)
-                                                    : item.inactiveColorPrimary,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12.0),
-                                      )),
-                                    ),
-                                  )
-                          ],
-                        )
+                            )
+                    ],
+                  )
                 ],
               ),
             ),
@@ -161,29 +99,55 @@ class BottomNavSimple extends StatelessWidget {
               this.navBarEssentials!.navBarHeight! * 0.15,
           bottom: this.navBarEssentials!.padding?.bottom ??
               this.navBarEssentials!.navBarHeight! * 0.12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: this.navBarEssentials!.items!.map((item) {
-          int index = this.navBarEssentials!.items!.indexOf(item);
-          return Flexible(
-            child: GestureDetector(
-              onTap: () {
-                if (this.navBarEssentials!.items![index].onPressed != null) {
-                  this.navBarEssentials!.items![index].onPressed!(
-                      this.navBarEssentials!.selectedScreenBuildContext);
-                } else {
-                  this.navBarEssentials!.onItemSelected!(index);
-                }
-              },
-              child: _buildItem(
-                  item,
-                  this.navBarEssentials!.selectedIndex == index,
-                  this.navBarEssentials!.navBarHeight),
+      child: isTablet
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: this.navBarEssentials!.items!.map((item) {
+                int index = this.navBarEssentials!.items!.indexOf(item);
+                return Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      if (this.navBarEssentials!.items![index].onPressed !=
+                          null) {
+                        this.navBarEssentials!.items![index].onPressed!(
+                            this.navBarEssentials!.selectedScreenBuildContext);
+                      } else {
+                        this.navBarEssentials!.onItemSelected!(index);
+                      }
+                    },
+                    child: _buildItem(
+                        item,
+                        this.navBarEssentials!.selectedIndex == index,
+                        this.navBarEssentials!.navBarHeight),
+                  ),
+                );
+              }).toList(),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: this.navBarEssentials!.items!.map((item) {
+                int index = this.navBarEssentials!.items!.indexOf(item);
+                return Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      if (this.navBarEssentials!.items![index].onPressed !=
+                          null) {
+                        this.navBarEssentials!.items![index].onPressed!(
+                            this.navBarEssentials!.selectedScreenBuildContext);
+                      } else {
+                        this.navBarEssentials!.onItemSelected!(index);
+                      }
+                    },
+                    child: _buildItem(
+                        item,
+                        this.navBarEssentials!.selectedIndex == index,
+                        this.navBarEssentials!.navBarHeight),
+                  ),
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
-      ),
     );
   }
 }
