@@ -3,6 +3,7 @@ part of persistent_bottom_nav_bar;
 class PersistentBottomNavBar extends StatelessWidget {
   const PersistentBottomNavBar({
     Key? key,
+    required this.isTablet,
     this.margin,
     this.confineToSafeArea,
     this.customNavBarWidget,
@@ -15,6 +16,7 @@ class PersistentBottomNavBar extends StatelessWidget {
     this.isCustomWidget = false,
   }) : super(key: key);
 
+  final bool isTablet;
   final NavBarEssentials? navBarEssentials;
   final EdgeInsets? margin;
   final NavBarDecoration? navBarDecoration;
@@ -182,6 +184,7 @@ class PersistentBottomNavBar extends StatelessWidget {
       bool? isCustomWidget,
       EdgeInsets? padding}) {
     return PersistentBottomNavBar(
+        isTablet: isTablet,
         confineToSafeArea: confineToSafeArea ?? this.confineToSafeArea,
         margin: margin ?? this.margin,
         neumorphicProperties: neumorphicProperties ?? this.neumorphicProperties,
@@ -291,6 +294,7 @@ class PersistentBottomNavBar extends StatelessWidget {
         default:
           return BottomNavSimple(
             navBarEssentials: this.navBarEssentials,
+            isTablet: isTablet,
           );
       }
     }

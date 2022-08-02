@@ -41,6 +41,7 @@ class PersistentTabScaffold extends StatefulWidget {
     Key? key,
     required this.tabBar,
     required this.tabBuilder,
+    required this.isTablet,
     this.controller,
     this.backgroundColor,
     this.resizeToAvoidBottomInset = true,
@@ -55,6 +56,8 @@ class PersistentTabScaffold extends StatefulWidget {
             "The PersistentTabController's current index ${controller.index} is "
             'out of bounds for the tab bar with ${tabBar.navBarEssentials!.items!.length} tabs'),
         super(key: key);
+
+  final bool isTablet;
 
   final PersistentBottomNavBar tabBar;
 
@@ -234,7 +237,8 @@ class _PersistentTabScaffoldState extends State<PersistentTabScaffold> {
           MediaQuery(
             data: existingMediaQuery.copyWith(textScaleFactor: 1),
             child: Align(
-              alignment: Alignment.topLeft,
+              alignment:
+                  widget.isTablet ? Alignment.topLeft : Alignment.bottomCenter,
               child: widget.tabBar.copyWith(
                 selectedIndex: _controller!.index,
                 onItemSelected: (int newIndex) {

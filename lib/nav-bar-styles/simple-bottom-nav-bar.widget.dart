@@ -3,9 +3,12 @@ part of persistent_bottom_nav_bar;
 class BottomNavSimple extends StatelessWidget {
   final NavBarEssentials? navBarEssentials;
 
+  final bool isTablet;
+
   BottomNavSimple({
     Key? key,
     this.navBarEssentials = const NavBarEssentials(items: null),
+    required this.isTablet,
   });
 
   Widget _buildItem(
@@ -25,57 +28,119 @@ class BottomNavSimple extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: IconTheme(
-                          data: IconThemeData(
-                              size: item.iconSize,
-                              color: isSelected
-                                  ? (item.activeColorSecondary == null
-                                      ? item.activeColorPrimary
-                                      : item.activeColorSecondary)
-                                  : item.inactiveColorPrimary == null
-                                      ? item.activeColorPrimary
-                                      : item.inactiveColorPrimary),
-                          child: isSelected
-                              ? item.icon
-                              : item.inactiveIcon ?? item.icon,
-                        ),
-                      ),
-                      item.title == null
-                          ? SizedBox.shrink()
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: Material(
-                                type: MaterialType.transparency,
-                                child: FittedBox(
-                                    child: Text(
-                                  item.title!,
-                                  style: item.textStyle != null
-                                      ? (item.textStyle!.apply(
-                                          color: isSelected
-                                              ? (item.activeColorSecondary ==
-                                                      null
-                                                  ? item.activeColorPrimary
-                                                  : item.activeColorSecondary)
-                                              : item.inactiveColorPrimary))
-                                      : TextStyle(
-                                          color: isSelected
-                                              ? (item.activeColorSecondary ==
-                                                      null
-                                                  ? item.activeColorPrimary
-                                                  : item.activeColorSecondary)
-                                              : item.inactiveColorPrimary,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12.0),
-                                )),
+                  isTablet
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: IconTheme(
+                                data: IconThemeData(
+                                    size: item.iconSize,
+                                    color: isSelected
+                                        ? (item.activeColorSecondary == null
+                                            ? item.activeColorPrimary
+                                            : item.activeColorSecondary)
+                                        : item.inactiveColorPrimary == null
+                                            ? item.activeColorPrimary
+                                            : item.inactiveColorPrimary),
+                                child: isSelected
+                                    ? item.icon
+                                    : item.inactiveIcon ?? item.icon,
                               ),
-                            )
-                    ],
-                  )
+                            ),
+                            item.title == null
+                                ? SizedBox.shrink()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: Material(
+                                      type: MaterialType.transparency,
+                                      child: FittedBox(
+                                          child: Text(
+                                        item.title!,
+                                        style: item.textStyle != null
+                                            ? (item.textStyle!.apply(
+                                                color: isSelected
+                                                    ? (item.activeColorSecondary ==
+                                                            null
+                                                        ? item
+                                                            .activeColorPrimary
+                                                        : item
+                                                            .activeColorSecondary)
+                                                    : item
+                                                        .inactiveColorPrimary))
+                                            : TextStyle(
+                                                color: isSelected
+                                                    ? (item.activeColorSecondary ==
+                                                            null
+                                                        ? item
+                                                            .activeColorPrimary
+                                                        : item
+                                                            .activeColorSecondary)
+                                                    : item.inactiveColorPrimary,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12.0),
+                                      )),
+                                    ),
+                                  )
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: IconTheme(
+                                data: IconThemeData(
+                                    size: item.iconSize,
+                                    color: isSelected
+                                        ? (item.activeColorSecondary == null
+                                            ? item.activeColorPrimary
+                                            : item.activeColorSecondary)
+                                        : item.inactiveColorPrimary == null
+                                            ? item.activeColorPrimary
+                                            : item.inactiveColorPrimary),
+                                child: isSelected
+                                    ? item.icon
+                                    : item.inactiveIcon ?? item.icon,
+                              ),
+                            ),
+                            item.title == null
+                                ? SizedBox.shrink()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: Material(
+                                      type: MaterialType.transparency,
+                                      child: FittedBox(
+                                          child: Text(
+                                        item.title!,
+                                        style: item.textStyle != null
+                                            ? (item.textStyle!.apply(
+                                                color: isSelected
+                                                    ? (item.activeColorSecondary ==
+                                                            null
+                                                        ? item
+                                                            .activeColorPrimary
+                                                        : item
+                                                            .activeColorSecondary)
+                                                    : item
+                                                        .inactiveColorPrimary))
+                                            : TextStyle(
+                                                color: isSelected
+                                                    ? (item.activeColorSecondary ==
+                                                            null
+                                                        ? item
+                                                            .activeColorPrimary
+                                                        : item
+                                                            .activeColorSecondary)
+                                                    : item.inactiveColorPrimary,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12.0),
+                                      )),
+                                    ),
+                                  )
+                          ],
+                        )
                 ],
               ),
             ),
@@ -85,8 +150,8 @@ class BottomNavSimple extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.navBarEssentials!.navBarHeight,
-      height: double.infinity,
+      width: isTablet ? this.navBarEssentials!.navBarHeight : double.infinity,
+      height: isTablet ? double.infinity : this.navBarEssentials!.navBarHeight,
       padding: EdgeInsets.only(
           left: this.navBarEssentials!.padding?.left ??
               MediaQuery.of(context).size.width * 0.04,

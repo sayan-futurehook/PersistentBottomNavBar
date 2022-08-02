@@ -61,11 +61,14 @@ class PersistentTabView extends PersistentTabViewBase {
   ///Hides the navigation bar with an transition animation. Use it in conjuction with [Provider](https://pub.dev/packages/provider) for better results.
   bool? hideNavigationBar;
 
+  final bool isTablet;
+
   final BuildContext context;
 
   PersistentTabView(this.context,
       {Key? key,
       List<PersistentBottomNavBarItem>? items,
+      required this.isTablet,
       required this.screens,
       this.controller,
       double navBarHeight = kBottomNavigationBarHeight,
@@ -134,6 +137,7 @@ class PersistentTabView extends PersistentTabViewBase {
     this.context, {
     Key? key,
     required this.screens,
+    required this.isTablet,
     this.controller,
     this.margin = EdgeInsets.zero,
     this.floatingActionButton,
@@ -565,6 +569,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
         resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
         backgroundColor: Colors.transparent,
         child: PersistentTabScaffold(
+          isTablet: widget.isTablet,
           controller: _controller,
           itemCount: widget.items == null
               ? widget.itemCount ?? 0
@@ -580,6 +585,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
           resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           animatePadding: _isAnimating! || _isCompleted!,
           tabBar: PersistentBottomNavBar(
+            isTablet: widget.isTablet,
             navBarEssentials: NavBarEssentials(
               selectedIndex: _controller!.index,
               previousIndex: _previousIndex,
