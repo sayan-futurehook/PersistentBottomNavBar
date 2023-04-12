@@ -42,6 +42,7 @@ class PersistentTabScaffold extends StatefulWidget {
     required this.tabBar,
     required this.tabBuilder,
     required this.isTablet,
+    required this.onLongTap,
     this.controller,
     this.backgroundColor,
     this.resizeToAvoidBottomInset = true,
@@ -58,6 +59,8 @@ class PersistentTabScaffold extends StatefulWidget {
         super(key: key);
 
   final bool isTablet;
+
+  final Function onLongTap;
 
   final PersistentBottomNavBar tabBar;
 

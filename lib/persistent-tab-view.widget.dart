@@ -63,12 +63,15 @@ class PersistentTabView extends PersistentTabViewBase {
 
   final bool isTablet;
 
+  final Function onLongTap;
+
   final BuildContext context;
 
   PersistentTabView(this.context,
       {Key? key,
       List<PersistentBottomNavBarItem>? items,
       required this.isTablet,
+      required this.onLongTap,
       required this.screens,
       this.controller,
       double navBarHeight = kBottomNavigationBarHeight,
@@ -138,6 +141,7 @@ class PersistentTabView extends PersistentTabViewBase {
     Key? key,
     required this.screens,
     required this.isTablet,
+    required this.onLongTap,
     this.controller,
     this.margin = EdgeInsets.zero,
     this.floatingActionButton,
@@ -570,6 +574,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
         backgroundColor: Colors.transparent,
         child: PersistentTabScaffold(
           isTablet: widget.isTablet,
+          onLongTap: widget.onLongTap,
           controller: _controller,
           itemCount: widget.items == null
               ? widget.itemCount ?? 0
@@ -585,6 +590,7 @@ class _PersistentTabViewState extends State<PersistentTabView> {
           resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
           animatePadding: _isAnimating! || _isCompleted!,
           tabBar: PersistentBottomNavBar(
+            onLongTap: widget.onLongTap,
             isTablet: widget.isTablet,
             navBarEssentials: NavBarEssentials(
               selectedIndex: _controller!.index,

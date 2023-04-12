@@ -5,10 +5,13 @@ class BottomNavSimple extends StatelessWidget {
 
   final bool isTablet;
 
+  final Function onLongTap;
+
   BottomNavSimple({
     Key? key,
     this.navBarEssentials = const NavBarEssentials(items: null),
     required this.isTablet,
+    required this.onLongTap,
   });
 
   Widget _buildItem(
@@ -116,6 +119,9 @@ class BottomNavSimple extends StatelessWidget {
                         this.navBarEssentials!.onItemSelected!(index);
                       }
                     },
+                    onLongPress: () {
+                      this.onLongTap();
+                    },
                     child: _buildItem(
                         item,
                         this.navBarEssentials!.selectedIndex == index,
@@ -139,6 +145,9 @@ class BottomNavSimple extends StatelessWidget {
                       } else {
                         this.navBarEssentials!.onItemSelected!(index);
                       }
+                    },
+                    onLongPress: () {
+                      this.onLongTap();
                     },
                     child: _buildItem(
                         item,
